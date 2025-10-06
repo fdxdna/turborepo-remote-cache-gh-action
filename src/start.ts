@@ -52,7 +52,10 @@ async function main() {
     saveState("pid", subprocess.pid?.toString());
   } catch (e) {
     info(`Error occurred ${e}`);
-    throw new Error(`Turbo server failed to start on port: ${port}`, e);
+    const message = e instanceof Error ? e.message : String(e);
+    throw new Error(
+      `Turbo server failed to start on port: ${port}. ${message}`
+    );
   }
 }
 
